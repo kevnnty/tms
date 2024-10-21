@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Driver List</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Drivers</h1>
+    <a href="{% url 'create-driver' %}">Add New Driver</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>License Number</th>
+          <th>Vehicle</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if drivers %} {% if drivers|length == 0 %}
+        <tr>
+          <td colspan="6">No Drivers registered yet!</td>
+        </tr>
+        {% else %} {% for driver in drivers %}
+        <tr>
+          <td>{{ driver.name }}</td>
+          <td>{{ driver.license_number }}</td>
+          <td>{{ driver.vehicle }}</td>
+          <td>
+            <a href="{% url 'view-driver' driver.id %}">View</a> |
+            <a href="{% url 'update-driver' driver.id %}">Edit</a>
+            <form action="{% url 'delete-driver' driver.id %}" method="post" style="display: inline">
+              {% csrf_token %}
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+        {% endfor %} {% endif %} {% else %}
+        <tr>
+          <td colspan="6">No drivers registered yet!</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </body>
+</html>

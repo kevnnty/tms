@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Driver</title>
+  </head>
+  <body>
+    <h1>Add New Driver</h1>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Save Driver</button>
+    </form>
+    <a href="{% url 'driver-list' %}">Back to Driver List</a>
+  </body>
+</html>
