@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Details</title>
+</head>
+<body>
+    <h1>Vehicle Details</h1>
+    <p><strong>Number Plate:</strong> {{ vehicle.number_plate }}</p>
+    <p><strong>Model:</strong> {{ vehicle.model }}</p>
+    <p><strong>Manufacturer:</strong> {{ vehicle.manufacturer }}</p>
+    <p><strong>Capacity:</strong> {{ vehicle.capacity }}</p>
+    <p><strong>Year of Manufacture:</strong> {{ vehicle.year_of_manufacture }}</p>
+    <a href="{% url 'update-vehicle' vehicle.id %}">Edit</a> |
+    <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <input type="submit" value="Delete" style="background: none; border: none; color: red; cursor: pointer;">
+    </form>
+    <a href="{% url 'vehicle-list' %}">Back to Vehicle List</a>
+</body>
+</html>

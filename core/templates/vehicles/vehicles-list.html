@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vehicle List</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vehicles</h1>
+    <a href="{% url 'create-vehicle' %}">Add New Vehicle</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Number Plate</th>
+          <th>Model</th>
+          <th>Capacity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if vehicles %} {% if vehicles|length == 0 %}
+        <tr>
+          <td colspan="6">No vehicles found</td>
+        </tr>
+        {% else %} {% for vehicle in vehicles %}
+        <tr>
+          <td>{{ vehicle.number_plate }}</td>
+          <td>{{ vehicle.model }}</td>
+          <td>{{ vehicle.capacity }}</td>
+          <td>
+            <a href="{% url 'get-single-vehicle' vehicle.id %}">View</a> | <a href="{% url 'update-vehicle' vehicle.id %}">Edit</a> |
+            <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
+              {% csrf_token %}
+              <input type="submit" value="Delete" style="background: none; border: none; color: red; cursor: pointer" />
+            </form>
+          </td>
+        </tr>
+        {% endfor %} {% endif %} {% else %}
+        <tr>
+          <td colspan="6">No vehicles found</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </body>
+</html>

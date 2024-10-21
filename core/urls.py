@@ -3,8 +3,8 @@ from .views import list_vehicles, create_vehicle, delete_vehicle, get_single_veh
 
 urlpatterns = [
     path('', list_vehicles, name='vehicle-list'), 
-    path('id/', get_single_vehicle, name='get-single-vehicle'), 
-    path('create/', create_vehicle, name='create-vehicle'),  
-    path('update/', update_vehicle , name='update-vehicle'),  
-    path('delete/', delete_vehicle, name='delete-vehicle'),  
+    path('vehicle/<int:vehicle_id>', get_single_vehicle, name='get-single-vehicle'), 
+    path('vehicle/create/', create_vehicle, name='create-vehicle'),  
+    path('vehicle/update/<int:vehicle_id>', update_vehicle , name='update-vehicle'),  
+    path('vehicle/delete/<int:vehicle_id>', delete_vehicle, name='delete-vehicle'),  
 ]

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Vehicle</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">  <!-- Assuming you have a styles.css -->
+</head>
+<body>
+    <h1>Delete Vehicle</h1>
+    <p>Are you sure you want to delete the vehicle with number plate: <strong>{{ vehicle.number_plate }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+    </form>
+    <a href="{% url 'vehicle-list' %}">Cancel</a>
+</body>
+</html>
