@@ -30,20 +30,24 @@
         <tr>
           <th>Name</th>
           <th>License Number</th>
-          <th>Vehicle</th>
+          <th>Vehicle License Id</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {% if drivers %} {% if drivers|length == 0 %}
-        <tr>
-          <td colspan="6">No Drivers registered yet!</td>
-        </tr>
-        {% else %} {% for driver in drivers %}
+        {% if drivers %} {% for driver in drivers %}
         <tr>
           <td>{{ driver.name }}</td>
           <td>{{ driver.license_number }}</td>
-          <td>{{ driver.vehicle }}</td>
+          <td>
+            {% if driver.vehicle %}
+            <a href="{% url 'view-vehicle' driver.vehicle.id %}"> {{ driver.vehicle.license_plate }} </a>
+            {% else %} No Vehicle Assigned {% endif %}
+
+            <button>
+              <a href="{% url 'assign-vehicle-to-driver' driver.id %}">Assign Vehicle</a>
+            </button>
+          </td>
           <td>
             <a href="{% url 'view-driver' driver.id %}">View</a> |
             <a href="{% url 'update-driver' driver.id %}">Edit</a>
@@ -53,9 +57,13 @@
             </form>
           </td>
         </tr>
-        {% endfor %} {% endif %} {% else %}
+        {% empty %}
         <tr>
-          <td colspan="6">No drivers registered yet!</td>
+          <td colspan="4">No drivers registered yet!</td>
+        </tr>
+        {% endfor %} {% else %}
+        <tr>
+          <td colspan="4">No drivers registered yet!</td>
         </tr>
         {% endif %}
       </tbody>

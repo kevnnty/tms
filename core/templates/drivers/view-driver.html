@@ -11,6 +11,9 @@
       <p><strong>License Number:</strong> {{ driver.license_number }}</p>
       <p><strong>Vehicle:</strong> {{ driver.vehicle }}</p>
     </div>
+    <button>
+      <a href="{% url 'assign-vehicle-to-driver' driver.id %}">Assign Vehicle</a>
+    </button>
     <div class="actions">
       <a href="{% url 'update-driver' driver.id %}">Edit Driver</a>
       <form action="{% url 'delete-driver' driver.id %}" method="post" style="display: inline">

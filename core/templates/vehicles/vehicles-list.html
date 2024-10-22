@@ -31,6 +31,7 @@
           <th>Number Plate</th>
           <th>Model</th>
           <th>Capacity</th>
+          <th>Driver</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -41,9 +42,16 @@
         </tr>
         {% else %} {% for vehicle in vehicles %}
         <tr>
-          <td>{{ vehicle.number_plate }}</td>
+          <td>{{ vehicle.license_plate }}</td>
           <td>{{ vehicle.model }}</td>
           <td>{{ vehicle.capacity }}</td>
+          <td>
+            {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
+            <a href="{% url 'view-driver' driver.id %}">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
+            <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="btn-assign">Assign Driver</a>
+            {% endif %}
+          </td>
+
           <td>
             <a href="{% url 'view-vehicle' vehicle.id %}">View</a> | <a href="{% url 'update-vehicle' vehicle.id %}">Edit</a> |
             <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">

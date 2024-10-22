@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Assign Driver to Vehicle</title>
+  </head>
+  <body>
+    <h1>Assign Driver to Vehicle: {{ vehicle.license_plate }}</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Assign" />
+    </form>
+    <a href="{% url 'vehicle-list' %}">Back to Vehicles</a>
+  </body>
+</html>
