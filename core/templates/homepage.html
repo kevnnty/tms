@@ -2,22 +2,20 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <title>Homepage</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
+    <title>TMS | Transport Management System</title>
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
+  </head>
+  <body>
     <h1>Welcome to the Transport Management System (TMS)</h1>
     <p>
-        The Transport Management System is designed to streamline the management of 
-        vehicles and drivers for various transportation services. Our goal is to 
-        enhance operational efficiency, improve safety, and provide an exceptional 
-        experience for both operators and users.
+      The Transport Management System is designed to streamline the management of vehicles and drivers for various transportation services. Our goal is to
+      enhance operational efficiency, improve safety, and provide an exceptional experience for both operators and users.
     </p>
     <nav>
-        <a href="{% url 'vehicle-list' %}">Manage Vehicles</a> |
-        <a href="{% url 'driver-list' %}">Manage Drivers</a>
+      <a href="{% url 'vehicle-list' %}">Manage Vehicles</a> |
+      <a href="{% url 'driver-list' %}">Manage Drivers</a>
     </nav>
-</body>
+  </body>
 </html>

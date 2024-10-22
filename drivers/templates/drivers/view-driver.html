@@ -1,34 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Driver Details</title>
-</head>
-<body>
-    <h1>Driver Details</h1>
-    <div class="driver-details">
-        <p><strong>Name:</strong> {{ driver.name }}</p>
-        <p><strong>License Number:</strong> {{ driver.license_number }}</p>
+{% extends "layout.html" %}
+ {% block title %}TMS | Driver Details{% endblock %} 
+ {% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-xl border border-gray-100 mt-10">
+  <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Driver Details</h1>
+  <div class="space-y-4">
+    <p><strong>Name:</strong> {{ driver.name }}</p>
+    <p><strong>License Number:</strong> {{ driver.license_number }}</p>
 
-        {% if driver.vehicle %}
-        <h2>Assigned Vehicle</h2>
-        <p><strong>License Plate:</strong> {{ driver.vehicle.license_plate }}</p>
-        <p><strong>Model:</strong> {{ driver.vehicle.model }}</p>
-        <a href="{% url 'view-vehicle' driver.vehicle.id %}">View Vehicle Details</a>
-        {% else %}
-        <p>No vehicle assigned to this driver.</p>
-        {% endif %}
+    {% if driver.vehicle %}
+    <h2 class="text-lg font-semibold text-gray-700 mt-8">Assigned Vehicle</h2>
+    <div class="space-y-2">
+      <p><strong>License Plate:</strong> {{ driver.vehicle.license_plate }}</p>
+      <p><strong>Model:</strong> {{ driver.vehicle.model }}</p>
+      <a href="{% url 'view-vehicle' driver.vehicle.id %}" class="text-blue-500">View Vehicle Details</a>
     </div>
-    <button>
-        <a href="{% url 'assign-vehicle-to-driver' driver.id %}">Assign Vehicle</a>
-    </button>
-    <div class="actions">
-        <a href="{% url 'update-driver' driver.id %}">Edit Driver</a>
-        <form action="{% url 'delete-driver' driver.id %}" method="post" style="display: inline">
-            {% csrf_token %}
-            <input type="submit" value="Delete Driver" style="background: none; border: none; color: red; cursor: pointer" />
-        </form>
-        <a href="{% url 'driver-list' %}">Back to Driver List</a>
-    </div>
-</body>
-</html>
+    {% else %}
+    <p class="text-gray-500 mt-4">No vehicle assigned to this driver.</p>
+    {% endif %}
+  </div>
+  <div class="mt-8">
+    <a
+      href="{% url 'assign-vehicle-to-driver' driver.id %}"
+      class="w-full block text-center py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition-all duration-300">
+      Assign Vehicle
+    </a>
+  </div>
+  <div class="actions mt-8 flex justify-between items-center">
+    <a href="{% url 'update-driver' driver.id %}" class="text-blue-500"> Edit Driver </a>
+    <form action="{% url 'delete-driver' driver.id %}" method="post" class="inline-block">
+      {% csrf_token %}
+      <input
+        type="submit"
+        value="Delete Driver"
+        class="text-red-500 px-3 py-1 rounded-md bg-red-100 hover:bg-red-200 cursor-pointer border-none transition-all duration-300" />
+    </form>
+    <a href="{% url 'driver-list' %}" class="text-gray-600"> Back to Driver List </a>
+  </div>
+</div>
+{% endblock %}

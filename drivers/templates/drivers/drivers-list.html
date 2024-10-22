@@ -1,72 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Driver List</title>
-    <style>
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Drivers</h1>
-    <a href="{% url 'create-driver' %}">Add New Driver</a>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>License Number</th>
-          <th>Vehicle License Id</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% if drivers %} {% for driver in drivers %}
-        <tr>
-          <td>{{ driver.name }}</td>
-          <td>{{ driver.license_number }}</td>
-          <td>
-            {% if driver.vehicle %}
-            <a href="{% url 'view-vehicle' driver.vehicle.id %}"> {{ driver.vehicle.license_plate }} </a>
-            {% else %} No Vehicle Assigned {% endif %}
+{% extends "layout.html" %} {% block title %} TMS | Drivers list {% endblock %} {% block content %}
 
-            <button>
-              <a href="{% url 'assign-vehicle-to-driver' driver.id %}">Assign Vehicle</a>
-            </button>
-          </td>
-          <td>
-            <a href="{% url 'view-driver' driver.id %}">View</a> |
-            <a href="{% url 'update-driver' driver.id %}">Edit</a>
-            <form action="{% url 'delete-driver' driver.id %}" method="post" style="display: inline">
-              {% csrf_token %}
-              <input type="submit" value="Delete" />
-            </form>
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="4">No drivers registered yet!</td>
-        </tr>
-        {% endfor %} {% else %}
-        <tr>
-          <td colspan="4">No drivers registered yet!</td>
-        </tr>
-        {% endif %}
-      </tbody>
-    </table>
-  </body>
-</html>
+<div class="container mx-auto p-4">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold mb-4">Drivers</h1>
+    <a href="{% url 'create-driver' %}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Driver</a>
+  </div>
+  <table class="min-w-full bg-white mt-4">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>License Number</th>
+        <th>Vehicle License Id</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if drivers %} {% for driver in drivers %}
+      <tr>
+        <td>{{ driver.name }}</td>
+        <td>{{ driver.license_number }}</td>
+        <td>
+          {% if driver.vehicle %}
+          <a href="{% url 'view-vehicle' driver.vehicle.id %}"> {{ driver.vehicle.license_plate }} </a>
+          {% else %} No Vehicle Assigned {% endif %}
+
+          <button>
+            <a href="{% url 'assign-vehicle-to-driver' driver.id %}">Assign Vehicle</a>
+          </button>
+        </td>
+        <td>
+          <a href="{% url 'view-driver' driver.id %}" class="btn view-btn">View</a>
+          <a href="{% url 'update-driver' driver.id %}" class="btn edit-btn">Edit</a>
+          <form action="{% url 'delete-driver' driver.id %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn delete-btn" />
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No drivers registered yet!</td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="4">No drivers registered yet!</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

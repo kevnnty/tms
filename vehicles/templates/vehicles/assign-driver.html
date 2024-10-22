@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Assign Driver to Vehicle</title>
-  </head>
-  <body>
-    <h1>Assign Driver to Vehicle: {{ vehicle.license_plate }}</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Assign" />
-    </form>
-    <a href="{% url 'vehicle-list' %}">Back to Vehicles</a>
-  </body>
-</html>
+{% extends "layout.html" %} {% block title %}TMS | Manage Vehicles{% endblock %} {% block content %}
+
+<div class="max-w-lg mx-auto bg-white p-10 rounded-xl border border-gray-100 mt-10">
+  <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Assign Driver to Vehicle: {{ vehicle.license_plate }}</h1>
+  <form method="post" class="form-container">
+    {% csrf_token %} {{ form.as_p }}
+    <input type="submit" value="Assign" />
+  </form>
+  <a href="{% url 'vehicle-list' %}">Back to Vehicles</a>
+</div>
+
+{% endblock %}

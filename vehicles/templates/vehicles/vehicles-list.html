@@ -1,71 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Vehicle List</title>
-    <style>
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Vehicles</h1>
-    <a href="{% url 'create-vehicle' %}">Add New Vehicle</a>
-    <table>
-      <thead>
-        <tr>
-          <th>Number Plate</th>
-          <th>Model</th>
-          <th>Capacity</th>
-          <th>Driver</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% if vehicles %} {% if vehicles|length == 0 %}
-        <tr>
-          <td colspan="6">No vehicles found</td>
-        </tr>
-        {% else %} {% for vehicle in vehicles %}
-        <tr>
-          <td>{{ vehicle.license_plate }}</td>
-          <td>{{ vehicle.model }}</td>
-          <td>{{ vehicle.capacity }}</td>
-          <td>
-            {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
-            <a href="{% url 'view-driver' driver.id %}">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
-            <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}">Assign Driver</a>
-            {% endif %}
-          </td>
+{% extends "layout.html" %} 
+{% block title %}TMS | Manage Vehicles{% endblock %} 
+{% block content %}
 
-          <td>
-            <a href="{% url 'view-vehicle' vehicle.id %}">View</a> | <a href="{% url 'update-vehicle' vehicle.id %}">Edit</a> |
-            <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
-              {% csrf_token %}
-              <input type="submit" value="Delete" style="background: none; border: none; color: red; cursor: pointer" />
-            </form>
-          </td>
-        </tr>
-        {% endfor %} {% endif %} {% else %}
-        <tr>
-          <td colspan="6">No vehicles found</td>
-        </tr>
-        {% endif %}
-      </tbody>
-    </table>
-  </body>
-</html>
+<div class="container mx-auto p-4">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold mb-4">Vehicles</h1>
+    <a href="{% url 'create-vehicle' %}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vehicle</a>
+  </div>
+  <table class="min-w-full bg-white mt-4">
+    <thead>
+      <tr>
+        <th>Number Plate</th>
+        <th>Category</th>
+        <th>Model</th>
+        <th>Capacity</th>
+        <th>Driver</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if vehicles %} {% if vehicles|length == 0 %}
+      <tr>
+        <td colspan="5" class="text-center py-2">No vehicles found</td>
+      </tr>
+      {% else %} {% for vehicle in vehicles %}
+      <tr class="hover:bg-gray-100">
+        <td>{{ vehicle.license_plate }}</td>
+        <td>{{ vehicle.category }}</td>
+        <td>{{ vehicle.model }}</td>
+        <td>{{ vehicle.capacity }}</td>
+        <td>
+          {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
+          <a href="{% url 'view-driver' driver.id %}" class="text-blue-500">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %}
+          No Driver Assigned
+          <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="text-blue-500">Assign Driver</a>
+          {% endif %}
+        </td>
+        <td class="py-2 px-4 border-b flex items-center gap-x-2">
+          <a href="{% url 'view-vehicle' vehicle.id %}" class="btn view-btn">View</a>
+          <a href="{% url 'update-vehicle' vehicle.id %}" class="btn edit-btn">Edit</a>
+          <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn delete-btn" />
+          </form>
+        </td>
+      </tr>
+      {% endfor %} {% endif %} {% else %}
+      <tr>
+        <td colspan="5" class="text-center py-2">No vehicles found</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

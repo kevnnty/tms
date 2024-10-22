@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Update Driver</title>
-  </head>
-  <body>
-    <h1>Update Driver</h1>
-    <form method="POST">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Update Driver</button>
-    </form>
-    <a href="{% url 'driver-list' %}">Back to Driver List</a>
-  </body>
-</html>
+{% extends "layout.html" %} 
+{% block title %}TMS | Update Driver{% endblock %} 
+{% block content %}
+<div class="max-w-lg mx-auto bg-white p-10 rounded-xl border border-gray-100 mt-10">
+  <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Update Driver</h1>
+  <form method="POST" class="space-y-4 form-container">
+    {% csrf_token %}
+    <div class="space-y-2">{{ form.as_p }}</div>
+    <button type="submit" class="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition-all duration-300">Update Driver</button>
+  </form>
+  <a href="{% url 'driver-list' %}" class="block text-blue-500 text-center mt-6 hover:underline"> Back to Driver List </a>
+</div>
+{% endblock %}
