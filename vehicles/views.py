@@ -11,7 +11,7 @@ def list_vehicles(request):
     Q(model__icontains=query) | 
     Q(status__iexact=query)
   )
-  return render(request, 'vehicles/vehicles-list.html', {'vehicles': vehicles, 'query': query})
+  return render(request, 'vehicles-list.html', {'vehicles': vehicles, 'query': query})
 
     
 def create_vehicle(request):
@@ -23,7 +23,7 @@ def create_vehicle(request):
   else:
     form = VehicleForm()
       
-  return render(request, 'vehicles/create-vehicle.html', {'form': form})
+  return render(request, 'create-vehicle.html', {'form': form})
 
 
 def update_vehicle(request, vehicle_id):
@@ -36,7 +36,7 @@ def update_vehicle(request, vehicle_id):
   else:
       form = VehicleForm(instance=vehicle)
 
-  return render(request, 'vehicles/update-vehicle.html', {'form': form})
+  return render(request, 'update-vehicle.html', {'form': form})
 
 
 def delete_vehicle(request, vehicle_id):
@@ -46,7 +46,7 @@ def delete_vehicle(request, vehicle_id):
     vehicle.delete()
     return redirect('vehicle-list')
   
-  return render(request, 'vehicles/delete-vehicle.html', {'vehicle': vehicle})
+  return render(request, 'delete-vehicle.html', {'vehicle': vehicle})
 
 
 def assign_driver_to_vehicle(request, vehicle_id):
@@ -62,12 +62,12 @@ def assign_driver_to_vehicle(request, vehicle_id):
   else:
       form = DriverAssignForm()
 
-  return render(request, 'vehicles/assign-driver.html', {'vehicle': vehicle, 'form': form })
+  return render(request, 'assign-driver.html', {'vehicle': vehicle, 'form': form })
 
 def view_vehicle(request, vehicle_id):
   vehicle = get_object_or_404(Vehicle, id=vehicle_id)
   driver = Driver.objects.filter(vehicle=vehicle).first()
-  return render(request, 'vehicles/view-vehicle.html', {'vehicle': vehicle, 'driver': driver})
+  return render(request, 'view-vehicle.html', {'vehicle': vehicle, 'driver': driver})
 
 
 

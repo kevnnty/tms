@@ -8,7 +8,7 @@ from django.db.models import Q
 
 def list_drivers(request):
     drivers = Driver.objects.all()
-    return render(request, 'drivers/drivers-list.html', {'drivers': drivers})
+    return render(request, 'drivers-list.html', {'drivers': drivers})
 
 
 def create_driver(request):
@@ -19,7 +19,7 @@ def create_driver(request):
             return redirect('driver-list')
     else:
         form = DriverForm()
-    return render(request, 'drivers/create-driver.html', {'form': form})
+    return render(request, 'create-driver.html', {'form': form})
 
 
 def update_driver(request, driver_id):
@@ -31,7 +31,7 @@ def update_driver(request, driver_id):
             return redirect('driver-list')
     else:
         form = DriverForm(instance=driver)
-    return render(request, 'drivers/update-driver.html', {'form': form})
+    return render(request, 'update-driver.html', {'form': form})
 
 
 def delete_driver(request, driver_id):
@@ -39,12 +39,12 @@ def delete_driver(request, driver_id):
     if request.method == 'POST':
         driver.delete()
         return redirect('driver-list')
-    return render(request, 'drivers/delete-driver.html', {'driver': driver})
+    return render(request, 'delete-driver.html', {'driver': driver})
 
 
 def view_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
-    return render(request, 'drivers/view-driver.html', {'driver': driver})
+    return render(request, 'view-driver.html', {'driver': driver})
 
 
 def assign_vehicle_to_driver(request, driver_id):
@@ -58,4 +58,4 @@ def assign_vehicle_to_driver(request, driver_id):
     else:
         form = AssignVehicleForm(instance=driver)
 
-    return render(request, 'drivers/assign-vehicle.html', {'form': form, 'driver': driver})
+    return render(request, 'assign-vehicle.html', {'form': form, 'driver': driver})
