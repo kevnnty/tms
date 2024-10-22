@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vehicle Details</title>
+  </head>
+  <body>
+    <h1>Vehicle Details</h1>
+    <p><strong>Number Plate:</strong> {{ vehicle.license_plate }}</p>
+    <p><strong>Model:</strong> {{ vehicle.model }}</p>
+    <p><strong>Capacity:</strong> {{ vehicle.capacity }}</p>
+    <p><strong>Category:</strong> {{ vehicle.category }}</p>
+    <p><strong>Status:</strong> {{ vehicle.status }}</p>
+
+    {% if driver %}
+    <h2>Assigned Driver</h2>
+    <p><strong>Name:</strong> {{ driver.name }}</p>
+    <p><strong>License Number:</strong> {{ driver.license_number }}</p>
+    <a href="{% url 'view-driver' driver.id %}">View Driver Details</a>
+    {% else %}
+    <p>No driver assigned to this vehicle.</p>
+    <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}">Assign driver</a>
+    {% endif %}
+
+    <a href="{% url 'update-vehicle' vehicle.id %}">Edit</a> |
+    <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
+      {% csrf_token %}
+      <input type="submit" value="Delete" style="background: none; border: none; color: red; cursor: pointer" />
+    </form>
+    <a href="{% url 'vehicle-list' %}">Back to Vehicle List</a>
+  </body>
+</html>

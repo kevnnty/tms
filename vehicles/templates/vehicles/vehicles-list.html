@@ -48,7 +48,7 @@
           <td>
             {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
             <a href="{% url 'view-driver' driver.id %}">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
-            <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="btn-assign">Assign Driver</a>
+            <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}">Assign Driver</a>
             {% endif %}
           </td>
 
