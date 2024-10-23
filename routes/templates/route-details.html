@@ -1,28 +1,25 @@
-{% extends "layout.html" %}
-{% block title %}TMS | Route Details{% endblock %}
-{% block content %}
-<div class="max-w-lg mx-auto bg-white p-10 rounded-xl border border-gray-100 mt-10">
+{% extends "layout.html" %} {% block title %}TMS | Route Details{% endblock %} {% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-xl border border-gray-100 mt-10 space-y-4">
   <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Route Details: {{ route.route_name }}</h1>
-  <p><strong>From:</strong> {{ route.start_location }}</p>
-  <p><strong>To:</strong> {{ route.end_location }}</p>
-  <p><strong>Estimated Travel Time:</strong> {{ route.estimated_travel_time }}</p>
-  <p><strong>Distance:</strong> {{ route.distance }} km</p>
-  <p>
-    <strong>Vehicles:</strong>
-    {% for vehicle in route.vehicles.all %}
-      {{ vehicle.license_plate }} ({{ vehicle.model }}), 
-    {% empty %}
-      No vehicles assigned.
-    {% endfor %}
-  </p>
-  <nav class="text-center mt-6">
-    <a href="{% url 'edit-route' route.id %}" class="text-blue-500 hover:underline">Edit</a> |
-    <form action="{% url 'delete-route' route.id %}" method="post" style="display: inline">
-      {% csrf_token %}
-      <input type="submit" value="Delete" class="text-red-600 cursor-pointer hover:underline" />
-    </form>
-    |
-    <a href="{% url 'routes-list' %}" class="text-blue-500 hover:underline">Back to Route List</a>
-  </nav>
+  <div class="border border-gray-200 p-5 rounded-2xl space-y-3">
+    <p><strong>From:</strong> {{ route.start_location }}</p>
+    <p><strong>To:</strong> {{ route.end_location }}</p>
+    <p><strong>Estimated Travel Time:</strong> {{ route.estimated_travel_time }}</p>
+    <p><strong>Distance:</strong> {{ route.distance }} km</p>
+  </div>
+  <div class="border border-gray-200 p-5 rounded-2xl space-y-3">
+    <p><strong>Vehicles:</strong> <span class="text-gray-400">({{ route.vehicles.count }}) vehicles assigned</span> <br /></p>
+    <div>
+      {% for vehicle in route.vehicles.all %}
+      <a href="{% url 'view-vehicle' vehicle.id %}" class="block bg-gray-200 p-2 mt-2">{{ vehicle.license_plate }} ({{ vehicle.model }})</a>
+      {% empty %} No vehicles are currently working on this route. {% endfor %}
+    </div>
+    <a href="{% url 'assign-vehicles-to-route' route.id %}" class="bg-blue-500 mt-3 btn block py-3 text-center">Manage vehicles</a>
+  </div>
+  <div class="mt-6 flex justify-center items-center gap-2">
+    <a href="{% url 'edit-route' route.id %}" class="btn edit-btn">Update route details</a>
+    <a href="{% url 'delete-route' route.id %}" class="btn delete-btn"> Delete route </a>
+  </div>
+  <a href="{% url 'routes-list' %}" class="mt-10 block text-blue-500 hover:underline">Back to Route List</a>
 </div>
 {% endblock %}

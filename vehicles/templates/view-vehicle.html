@@ -1,34 +1,49 @@
-{% extends "layout.html" %}
-
-{% block title %}TMS | Vehicle Details{% endblock %}
-
-{% block content %}
-<div class="max-w-lg mx-auto bg-white p-10 rounded-xl border border-gray-100 mt-10">
+{% extends "layout.html" %} {% block title %}TMS | Vehicle Details{% endblock %} {% block content %}
+<div class="max-w-6xl mx-auto bg-white p-8 rounded-xl border border-gray-100 mt-10 space-y-4">
   <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Vehicle Details</h1>
-  
-  <p class="mb-4"><strong>Number Plate:</strong> {{ vehicle.license_plate }}</p>
-  <p class="mb-4"><strong>Model:</strong> {{ vehicle.model }}</p>
-  <p class="mb-4"><strong>Capacity:</strong> {{ vehicle.capacity }}</p>
-  <p class="mb-4"><strong>Category:</strong> {{ vehicle.category }}</p>
-  <p class="mb-4"><strong>Status:</strong> {{ vehicle.status }}</p>
-
-  {% if driver %}
-  <h2 class="text-xl font-semibold text-blue-600 mt-6">Assigned Driver</h2>
-  <p class="mb-4"><strong>Name:</strong> {{ driver.name }}</p>
-  <p class="mb-4"><strong>License Number:</strong> {{ driver.license_number }}</p>
-  <a href="{% url 'view-driver' driver.id %}" class="text-blue-500 hover:underline">View Driver Details</a>
-  {% else %}
-  <p class="mb-4">No driver assigned to this vehicle.</p>
-  <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="text-blue-500 hover:underline">Assign Driver</a>
-  {% endif %}
-
-  <div class="mt-6 flex justify-between items-center">
-    <a href="{% url 'update-vehicle' vehicle.id %}" class="text-blue-500 hover:underline">Edit</a>
-    <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
-      {% csrf_token %}
-      <input type="submit" value="Delete" class="text-red-500 px-3 py-1 rounded-md bg-red-100 hover:bg-red-200 cursor-pointer border-none transition-all duration-300" />
-    </form>
-    <a href="{% url 'vehicle-list' %}" class="text-blue-500 hover:underline">Back to Vehicle List</a>
+  <div class="border border-gray-200 p-5 rounded-2xl space-y-3">
+    <p><strong>Number Plate:</strong> {{ vehicle.license_plate }}</p>
+    <p><strong>Model:</strong> {{ vehicle.model }}</p>
+    <p><strong>Capacity:</strong> {{ vehicle.capacity }}</p>
+    <p><strong>Category:</strong> {{ vehicle.category }}</p>
+    <p><strong>Status:</strong> {{ vehicle.status }}</p>
   </div>
+  <div class="flex gap-3">
+    <div class="w-full border border-gray-200 p-5 rounded-2xl space-y-3">
+      <h2 class="text-xl font-semibold text-blue-600">Assigned Driver</h2>
+      {% if driver %}
+      <p><strong>Name:</strong> {{ driver.name }}</p>
+      <p><strong>License Number:</strong> {{ driver.license_number }}</p>
+
+      <div class="flex gap-4">
+        <a href="{% url 'view-driver' driver.id %}" class="mt-3 w-full btn edit-btn block py-2 text-center">View driver's details</a>
+        <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="bg-blue-500 mt-3 w-full btn block py-2 text-center">Assign new Driver</a>
+      </div>
+      {% else %}
+      <p>No driver assigned to this vehicle.</p>
+      <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="bg-blue-500 mt-3 btn block py-2 text-center">Assign Driver</a>
+      {% endif %}
+    </div>
+    <div class="w-full border border-gray-200 p-5 rounded-2xl space-y-3">
+      <h2 class="text-xl font-semibold text-blue-600">Trip details</h2>
+      {% if vehicle.route %}
+      <p><strong>Route:</strong> {{ vehicle.route }}</p>
+      <p><strong>Estimated Travel Time:</strong> {{ vehicle.route.estimated_travel_time }}</p>
+
+      <div class="flex gap-4">
+        <a href="{% url 'route-details' vehicle.route.id %}" class="mt-3 w-full btn edit-btn block py-2 text-center">View route's details</a>
+        <a href="{% url 'assign-route-to-vehicle' vehicle.id %}" class="bg-blue-500 mt-3 w-full btn block py-2 text-center">Assign new route</a>
+      </div>
+      {% else %}
+      <p>No route assigned to this vehicle.</p>
+      <a href="{% url 'assign-route-to-vehicle' vehicle.id %}" class="bg-blue-500 mt-3 btn block py-2 text-center">Assign Route</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="mt-6 flex justify-center items-center gap-2">
+    <a href="{% url 'update-vehicle' vehicle.id %}" class="btn edit-btn py-3">Update vehicle's details</a>
+    <a href="{% url 'delete-vehicle' vehicle.id %}" class="btn delete-btn py-3"> Delete vehicle data </a>
+  </div>
+  <a href="{% url 'vehicle-list' %}" class="mt-10 block text-blue-500 hover:underline">Back to Vehicle List</a>
 </div>
 {% endblock %}

@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Vehicle
-from .forms import VehicleForm, DriverAssignForm;
+from .forms import VehicleForm, DriverAssignForm, RouteAssignForm;
 from drivers.models import Driver
-from django.db.models import Q
 
 def vehicles_list(request):
   vehicles = Vehicle.objects.all()
@@ -31,7 +30,7 @@ def update_vehicle(request, vehicle_id):
   else:
       form = VehicleForm(instance=vehicle)
 
-  return render(request, 'update-vehicle.html', {'form': form})
+  return render(request, 'update-vehicle.html', {'form': form, 'vehicle': vehicle})
 
 
 def delete_vehicle(request, vehicle_id):
@@ -53,7 +52,7 @@ def assign_driver_to_vehicle(request, vehicle_id):
       driver = form.cleaned_data['driver']
       driver.vehicle = vehicle
       driver.save()
-      return redirect('vehicle-list')
+      return redirect('view-vehicle', vehicle.id)
   else:
       form = DriverAssignForm()
 
@@ -63,3 +62,19 @@ def view_vehicle(request, vehicle_id):
   vehicle = get_object_or_404(Vehicle, id=vehicle_id)
   driver = Driver.objects.filter(vehicle=vehicle).first()
   return render(request, 'view-vehicle.html', {'vehicle': vehicle, 'driver': driver})
+
+
+def assign_route(request, vehicle_id):
+  vehicle = get_object_or_404(Vehicle, id=vehicle_id)
+   
+  if request.method == 'POST':
+    form = RouteAssignForm(request.POST)
+    if form.is_valid():
+      route = form.cleaned_data['route']
+      vehicle.route = route
+      vehicle.save()
+      return redirect('vehicle-list')
+  else:
+      form = RouteAssignForm()
+
+  return render(request, 'assign-route.html', {'vehicle': vehicle, 'form': form })

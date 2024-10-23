@@ -1,12 +1,15 @@
-{% extends "layout.html" %} {% block title %}TMS | Manage Vehicles{% endblock %} {% block content %}
+{% extends "layout.html" %} 
+{% block title %}TMS | Manage Vehicles{% endblock %} 
+{% block content %}
 
 <div class="max-w-lg mx-auto bg-white p-10 rounded-xl border border-gray-100 mt-10">
-  <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Assign Driver to Vehicle: {{ vehicle.license_plate }}</h1>
+  <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Assign Route to Vehicle: {{ vehicle.license_plate }}</h1>
   <form method="post" class="form-container">
     {% csrf_token %} {{ form.as_p }}
+
     <div class="flex items-center justify-between mt-4">
       <a href="{% url 'view-vehicle' vehicle.id %}" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Cancel</a>
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Assign New Driver</button>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Assign New Route</button>
     </div>
   </form>
 </div>

@@ -34,6 +34,7 @@ tbody tr:hover {
   border-radius: 0.375rem;
   cursor: pointer;
   border: none;
+  text-align: center;
 }
 .view-btn, .edit-btn {
   background-color: #a9a9a9;

@@ -11,8 +11,8 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>License Number</th>
-        <th>Assigned Vehicle</th>
+        <th>Driver License Number</th>
+        <th>Assigned Vehicle (Number plate)</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -24,7 +24,7 @@
         <td>
           <div class="flex  justify-between">
             {% if driver.vehicle %}
-            <a href="{% url 'view-vehicle' driver.vehicle.id %}"> {{ driver.vehicle.license_plate }} </a>
+            <a href="{% url 'view-vehicle' driver.vehicle.id %}" class="bg-gray-200 p-1 mb-1"> {{ driver.vehicle.license_plate }} </a>
             {% else %} No Vehicle Assigned {% endif %}
 
             <button>
@@ -35,10 +35,7 @@
         <td>
           <a href="{% url 'view-driver' driver.id %}" class="btn view-btn">View</a>
           <a href="{% url 'update-driver' driver.id %}" class="btn edit-btn">Edit</a>
-          <form action="{% url 'delete-driver' driver.id %}" method="post" style="display: inline">
-            {% csrf_token %}
-            <input type="submit" value="Delete" class="btn delete-btn" />
-          </form>
+          <a href="{% url 'delete-driver' driver.id %}" class="btn delete-btn">Delete</a>
         </td>
       </tr>
       {% empty %}

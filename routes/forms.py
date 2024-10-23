@@ -1,5 +1,6 @@
 from django import forms
 from .models import Route
+from vehicles.models import Vehicle
 
 class RouteForm(forms.ModelForm):
   class Meta:
@@ -16,3 +17,6 @@ class RouteForm(forms.ModelForm):
       'distance': 'Distance (km)',
       'vehicles': 'Assign Vehicles',
     }
+    
+class VehicleAssignForm(forms.Form):
+  vehicles = forms.ModelMultipleChoiceField(queryset=Vehicle.objects.filter(route__isnull=True), widget=forms.CheckboxSelectMultiple, required=True)

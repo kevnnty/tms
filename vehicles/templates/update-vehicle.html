@@ -8,6 +8,6 @@
     {{ form.as_p }}
     <button type="submit" class="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition-all duration-300">Update</button>
   </form>
-  <a href="{% url 'vehicle-list' %}" class="block text-blue-500 text-center mt-6 hover:underline"> Back to Vehicle List </a>
+  <a href="{% url 'view-vehicle' vehicle.id %}" class="block text-blue-500 text-center mt-6 hover:underline"> Cancel </a>
 </div>
 {% endblock %}

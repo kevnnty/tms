@@ -5,52 +5,34 @@
     <h1 class="text-2xl font-bold mb-4">Vehicles</h1>
     <a href="{% url 'create-vehicle' %}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vehicle</a>
   </div>
-  <table class="min-w-full bg-white mt-4">
-    <thead>
-      <tr>
-        <th>Number Plate</th>
-        <th>Category</th>
-        <th>Model</th>
-        <th>Capacity</th>
-        <th>Driver</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% if vehicles %} {% if vehicles|length == 0 %}
-      <tr>
-        <td colspan="5" class="text-center py-2">No vehicles found</td>
-      </tr>
-      {% else %} {% for vehicle in vehicles %}
-      <tr>
-        <td>{{ vehicle.license_plate }}</td>
-        <td>{{ vehicle.category }}</td>
-        <td>{{ vehicle.model }}</td>
-        <td>{{ vehicle.capacity }}</td>
-        <td>
-          <div class="flex justify-between">
-            {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
-            <a href="{% url 'view-driver' driver.id %}" class="text-blue-600">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
-            <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="bg-blue-500 text-white py-1 px-3 rounded">Assign Driver</a>
-            {% endif %}
-          </div>
-        </td>
-        <td>
-          <a href="{% url 'view-vehicle' vehicle.id %}" class="btn view-btn">View</a>
-          <a href="{% url 'update-vehicle' vehicle.id %}" class="btn edit-btn">Edit</a>
-          <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
-            {% csrf_token %}
-            <input type="submit" value="Delete" class="btn delete-btn" />
-          </form>
-        </td>
-      </tr>
-      {% endfor %} {% endif %} {% else %}
-      <tr>
-        <td colspan="5" class="text-center py-2">No vehicles found</td>
-      </tr>
-      {% endif %}
-    </tbody>
-  </table>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-t border-gray-200 mt-5 pt-5">
+    {% if vehicles %} {% for vehicle in vehicles %}
+    <div class="bg-white p-7 rounded-2xl shadow-xl space-y-4 border border-gray-100">
+      <h2 class="text-xl font-semibold">{{ vehicle.license_plate }}</h2>
+      <p class="text-gray-600"><strong>Model:</strong> {{ vehicle.model }}</p>
+      <p class="text-gray-600"><strong>Category:</strong> {{ vehicle.category }}</p>
+      <p class="text-gray-600"><strong>Capacity:</strong> {{ vehicle.capacity }}</p>
+
+      <p class="text-gray-600">
+        <strong>Driver:</strong>
+        {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
+        <a href="{% url 'view-driver' driver.id %}" class="text-blue-600">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No
+        Driver Assigned {% endif %}
+      </p>
+
+      <p class="text-gray-600">
+        <strong>Assigned Route:</strong>
+        {% if vehicle.route %}
+        <a href="{% url 'route-details' vehicle.route.id %}" class="text-blue-600">{{ vehicle.route }}</a>
+        {% else %} No Route Assigned {% endif %}
+      </p>
+      <a href="{% url 'view-vehicle' vehicle.id %}" class="btn view-btn py-3 block text-center">Manage vehicle</a>
+    </div>
+    {% endfor %} {% else %}
+    <p class="text-center text-gray-500">No vehicles found</p>
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}
