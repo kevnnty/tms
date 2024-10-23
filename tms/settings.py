@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'vehicles',
-    'drivers'
+    'drivers',
+    'routes'
 ]
 
 MIDDLEWARE = [

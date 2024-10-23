@@ -71,3 +71,7 @@ a:hover {
   border-color: #007BFF;
   outline: none;
 }
+
+.errorlist li {
+  color: #ef4444 !important;
+}

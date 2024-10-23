@@ -4,7 +4,7 @@ from .forms import VehicleForm, DriverAssignForm;
 from drivers.models import Driver
 from django.db.models import Q
 
-def list_vehicles(request):
+def vehicles_list(request):
   vehicles = Vehicle.objects.all()
   return render(request, 'vehicles-list.html', {'vehicles': vehicles })
 

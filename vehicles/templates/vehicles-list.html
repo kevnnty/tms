@@ -30,7 +30,7 @@
         <td>
           <div class="flex justify-between">
             {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
-            <a href="{% url 'view-driver' driver.id %}">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
+            <a href="{% url 'view-driver' driver.id %}" class="text-blue-600">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
             <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="bg-blue-500 text-white py-1 px-3 rounded">Assign Driver</a>
             {% endif %}
           </div>

@@ -1,4 +1,5 @@
 from django.db import models
+from routes.models import Route
 
 class Vehicle(models.Model):
     NUMBER_PLATE_MAX_LENGTH = 15
@@ -18,6 +19,7 @@ class Vehicle(models.Model):
     capacity = models.IntegerField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=CATEGORY_CHOICES[0])
     status = models.CharField(max_length=20, choices=[('active', 'Active'), ('inactive', 'Inactive')])
-    
+    route = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True, blank=True, related_name='vehicles')
+
     def __str__(self):
         return f"{self.license_plate} - {self.model}"

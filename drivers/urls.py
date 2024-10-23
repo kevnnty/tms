@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import ( create_driver, delete_driver, list_drivers, update_driver, view_driver, assign_vehicle_to_driver )
+from .views import ( create_driver, delete_driver, drivers_list, update_driver, view_driver, assign_vehicle_to_driver )
 
 urlpatterns = [
-  path('', list_drivers, name='driver-list'),
+  path('', drivers_list, name='driver-list'),
   path('create/', create_driver, name='create-driver'),
   path('update/<int:driver_id>/', update_driver, name='update-driver'),
   path('delete/<int:driver_id>/', delete_driver, name='delete-driver'),
