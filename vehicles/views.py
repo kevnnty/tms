@@ -5,13 +5,8 @@ from drivers.models import Driver
 from django.db.models import Q
 
 def list_vehicles(request):
-  query = request.GET.get('search', '')
-  vehicles = Vehicle.objects.filter(
-    Q(license_plate__icontains=query) | 
-    Q(model__icontains=query) | 
-    Q(status__iexact=query)
-  )
-  return render(request, 'vehicles-list.html', {'vehicles': vehicles, 'query': query})
+  vehicles = Vehicle.objects.all()
+  return render(request, 'vehicles-list.html', {'vehicles': vehicles })
 
     
 def create_vehicle(request):
@@ -68,6 +63,3 @@ def view_vehicle(request, vehicle_id):
   vehicle = get_object_or_404(Vehicle, id=vehicle_id)
   driver = Driver.objects.filter(vehicle=vehicle).first()
   return render(request, 'view-vehicle.html', {'vehicle': vehicle, 'driver': driver})
-
-
-

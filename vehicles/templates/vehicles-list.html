@@ -1,6 +1,4 @@
-{% extends "layout.html" %} 
-{% block title %}TMS | Manage Vehicles{% endblock %} 
-{% block content %}
+{% extends "layout.html" %} {% block title %}TMS | Manage Vehicles{% endblock %} {% block content %}
 
 <div class="container mx-auto p-4">
   <div class="flex items-center justify-between">
@@ -24,22 +22,20 @@
         <td colspan="5" class="text-center py-2">No vehicles found</td>
       </tr>
       {% else %} {% for vehicle in vehicles %}
-      <tr class="hover:bg-gray-100">
+      <tr>
         <td>{{ vehicle.license_plate }}</td>
         <td>{{ vehicle.category }}</td>
         <td>{{ vehicle.model }}</td>
         <td>{{ vehicle.capacity }}</td>
         <td>
           <div class="flex justify-between">
-
             {% if vehicle.driver_set.all %} {% for driver in vehicle.driver_set.all %}
-            <a href="{% url 'view-driver' driver.id %}" >{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %}
-            No Driver Assigned
+            <a href="{% url 'view-driver' driver.id %}">{{ driver.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% else %} No Driver Assigned
             <a href="{% url 'assign-driver-to-vehicle' vehicle.id %}" class="bg-blue-500 text-white py-1 px-3 rounded">Assign Driver</a>
             {% endif %}
           </div>
         </td>
-        <td class="py-2 px-4 border-b flex items-center gap-x-2">
+        <td>
           <a href="{% url 'view-vehicle' vehicle.id %}" class="btn view-btn">View</a>
           <a href="{% url 'update-vehicle' vehicle.id %}" class="btn edit-btn">Edit</a>
           <form action="{% url 'delete-vehicle' vehicle.id %}" method="post" style="display: inline">
