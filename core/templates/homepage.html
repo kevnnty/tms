@@ -4,18 +4,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TMS | Transport Management System</title>
     <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
   </head>
   <body>
-    <h1>Welcome to the Transport Management System (TMS)</h1>
-    <p>
-      The Transport Management System is designed to streamline the management of vehicles and drivers for various transportation services. Our goal is to
-      enhance operational efficiency, improve safety, and provide an exceptional experience for both operators and users.
-    </p>
-    <nav>
-      <a href="{% url 'vehicle-list' %}">Manage Vehicles</a> |
-      <a href="{% url 'driver-list' %}">Manage Drivers</a>
-    </nav>
+    <div class="container">
+      <header>
+        <h1>Welcome to the Transport Management System (TMS)</h1>
+        <p>
+          The Transport Management System is designed to streamline the management of vehicles and drivers for various transportation services. Our goal is to
+          enhance operational efficiency, improve safety, and provide an exceptional experience for both operators and users.
+        </p>
+      </header>
+      <nav>
+        {% if user.is_authenticated %}
+          <a href="{% url 'vehicle-list' %}" class="btn">Vehicle Management</a>
+          <a href="{% url 'driver-list' %}" class="btn">Drivers Management</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn">Login</a>
+          <a href="{% url 'register' %}" class="btn">Register</a>
+        {% endif %}
+      </nav>
+    </div>
   </body>
 </html>

@@ -42,9 +42,17 @@
           </div>
         </nav>
       </aside>
-      <main class="flex-1 flex-grow m-4 p-4 flex flex-col bg-white rounded-3xl">
-        <div class="flex-1 h-full rounded-3xl overflow-y-scroll">{% block content %} {% endblock %}</div>
-      </main>
+      <div class="h-screen flex-1 m-4 flex flex-col">
+        <nav class="p-4 flex flex-col bg-white rounded-3xl">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-blue-500 px-4 py-2 rounded-xl text-white">Logout</button>
+          </form>
+        </nav>
+        <main class="flex-1 p-4 mt-4 flex flex-col bg-white rounded-3xl">
+          <div class="flex-1 h-full rounded-3xl overflow-y-scroll">{% block content %} {% endblock %}</div>
+        </main>
+      </div>
     </div>
   </body>
 </html>
