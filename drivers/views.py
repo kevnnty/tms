@@ -2,14 +2,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Driver
 from .forms import DriverForm, AssignVehicleForm
-
-from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 def drivers_list(request):
-    drivers = Driver.objects.all()
-    return render(request, 'drivers-list.html', {'drivers': drivers})
+    driver_list = Driver.objects.all()
+    paginator = Paginator(driver_list, 10)
+    
+    page_number = request.GET.get('page')
+    drivers = paginator.get_page(page_number)
 
+    return render(request, 'drivers-list.html', {'drivers': drivers})
 
 def create_driver(request):
     if request.method == 'POST':
