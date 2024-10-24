@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Driver
 from .forms import DriverForm, AssignVehicleForm
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def drivers_list(request):
     driver_list = Driver.objects.all()
     paginator = Paginator(driver_list, 10)
@@ -14,6 +15,7 @@ def drivers_list(request):
 
     return render(request, 'drivers-list.html', {'drivers': drivers})
 
+@login_required
 def create_driver(request):
     if request.method == 'POST':
         form = DriverForm(request.POST)
@@ -24,7 +26,7 @@ def create_driver(request):
         form = DriverForm()
     return render(request, 'create-driver.html', {'form': form})
 
-
+@login_required
 def update_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     if request.method == 'POST':
@@ -36,7 +38,7 @@ def update_driver(request, driver_id):
         form = DriverForm(instance=driver)
     return render(request, 'update-driver.html', {'form': form})
 
-
+@login_required
 def delete_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     if request.method == 'POST':
@@ -44,12 +46,13 @@ def delete_driver(request, driver_id):
         return redirect('driver-list')
     return render(request, 'delete-driver.html', {'driver': driver})
 
-
+@login_required
 def view_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     return render(request, 'view-driver.html', {'driver': driver})
 
 
+@login_required
 def assign_vehicle_to_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
