@@ -10,22 +10,4 @@ def user_register(request):
             return redirect('login')
     else:
         form = UserRegistrationForm()
-    return render(request, 'register.html', {'form': form})
-
-
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('vehicle-list')
-        else:
-            return render(request, 'login.html', {'error': 'Invalid username or password.'})
-    return render(request, 'login.html')
-
-
-def user_logout(request):
-    logout(request)
-    return redirect('home')
+    return render(request, 'registration/register.html', {'form': form})

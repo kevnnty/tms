@@ -8,51 +8,52 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet" />
   </head>
-  <body class="bg-gray-100 font-sans">
-    <div class="w-full flex h-screen">
-      <aside class="h-screen w-1/5 bg-white p-4 rounded-r-3xl">
-        <h1 class="text-blue-600 text-2xl">TMS</h1>
-        <nav class="mt-10 w-full">
-          <p class="text-gray-400 px-3">Management portal</p>
-          <div class="space-y-3 mt-3">
-            <a
-              href="{% url 'driver-list' %}"
-              class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-              <span> Drivers </span>
-              <span> &rarr; </span></a
-            >
-            <a
-              href="{% url 'vehicle-list' %}"
-              class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-              <span> Vehicles </span>
-              <span> &rarr; </span></a
-            >
-            <a
-              href="{% url 'routes-list'%}"
-              class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-              <span> Routes & Trips </span>
-              <span> &rarr; </span></a
-            >
-            <a
-              href="#"
-              class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-              <span> Reporting & Analytics </span>
-              <span> &rarr; </span></a
-            >
-          </div>
-        </nav>
-      </aside>
-      <div class="h-screen flex-1 m-4 flex flex-col">
-        <nav class="p-4 flex flex-col bg-white rounded-3xl">
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="bg-blue-500 px-4 py-2 rounded-xl text-white">Logout</button>
-          </form>
-        </nav>
-        <main class="flex-1 p-4 mt-4 flex flex-col bg-white rounded-3xl">
-          <div class="flex-1 h-full rounded-3xl overflow-y-scroll">{% block content %} {% endblock %}</div>
-        </main>
-      </div>
+  <body class="bg-gray-100 w-full flex items-start">
+    <aside class="h-screen sticky top-0 w-1/5 bg-white p-4 rounded-r-3xl">
+      <h1 class="text-blue-600 text-2xl">TMS</h1>
+      <nav class="mt-10 w-full">
+        <p class="text-gray-400 px-3">Management portal</p>
+        <div class="space-y-3 mt-3">
+          <a
+            href="{% url 'driver-list' %}"
+            class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
+            <span> Drivers </span>
+            <span> &rarr; </span></a
+          >
+          <a
+            href="{% url 'vehicle-list' %}"
+            class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
+            <span> Vehicles </span>
+            <span> &rarr; </span></a
+          >
+          <a
+            href="{% url 'routes-list'%}"
+            class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
+            <span> Routes & Trips </span>
+            <span> &rarr; </span></a
+          >
+          <a
+            href="#"
+            class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
+            <span> Reporting & Analytics </span>
+            <span> &rarr; </span></a
+          >
+        </div>
+      </nav>
+    </aside>
+    <div class="h-screen w-full flex flex-col">
+      <nav class="m-4 p-4 pl-6 flex justify-between bg-white rounded-3xl">
+        <h1 class="text-2xl">Hello, {{ user.username }}!</h1>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white">Logout</button>
+        </form>
+      </nav>
+      <main class="flex-1 m-4 mt-0 flex flex-col p-4 bg-white rounded-3xl overflow-y-hidden">
+        <div class="flex-1 h-full w-full overflow-y-scroll">
+          {% block content %} {% endblock %}
+        <div>
+      </main>
     </div>
   </body>
 </html>
