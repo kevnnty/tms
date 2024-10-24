@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Route
 from .forms import RouteForm, VehicleAssignForm
+from vehicles.models import Vehicle
 
 def routes_list(request):
   routes = Route.objects.all()
@@ -43,18 +44,24 @@ def delete_route(request, route_id):
   return render(request, 'delete-route.html', {'route': route})
 
 
-def assign_vehicles(request, route_id):
+def assign_vehicles_to_route(request, route_id):
   route = get_object_or_404(Route, id=route_id)
   
   if request.method == 'POST':
-    form = VehicleAssignForm(request.POST)
-    if form.is_valid():
-      vehicles = form.cleaned_data['vehicles']
-      for vehicle in vehicles:
-        vehicle.route = route 
-        vehicle.save()
-      return redirect('route-details', route_id=route_id) 
-  else:
-    form = VehicleAssignForm()
+    vehicle_ids = request.POST.getlist('vehicles')
+    selected_vehicles = Vehicle.objects.filter(id__in=vehicle_ids)
+    route.vehicles.exclude(id__in=vehicle_ids).update(route=None)
+    selected_vehicles.update(route=route)
+    
+    return redirect('routes-list')
   
-  return render(request, 'assign-vehicles.html', {'route': route, 'form': form})
+  else:
+    available_vehicles = Vehicle.objects.filter(route__isnull=True)
+    assigned_vehicles = route.vehicles.all()
+    all_vehicles = available_vehicles | assigned_vehicles
+    
+    return render(request, 'assign-vehicles.html', {
+      'route': route,
+      'vehicles': all_vehicles,
+      'assigned_vehicles': assigned_vehicles
+    })

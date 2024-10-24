@@ -19,4 +19,8 @@ class RouteForm(forms.ModelForm):
     }
     
 class VehicleAssignForm(forms.Form):
-  vehicles = forms.ModelMultipleChoiceField(queryset=Vehicle.objects.filter(route__isnull=True), widget=forms.CheckboxSelectMultiple, required=True)
+  vehicles = forms.ModelMultipleChoiceField(
+    queryset=Vehicle.objects.filter(route__isnull=True),
+    widget=forms.SelectMultiple(attrs={'class': 'w-full p-2 border rounded'}),
+    required=False
+  )
