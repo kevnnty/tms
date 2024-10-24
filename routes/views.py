@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Route
-from .forms import RouteForm, VehicleAssignForm
+from .forms import RouteForm
 from vehicles.models import Vehicle
 
 def routes_list(request):
