@@ -3,10 +3,15 @@ from .models import Route
 from .forms import RouteForm
 from vehicles.models import Vehicle
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 
 @login_required
 def routes_list(request):
-  routes = Route.objects.all()
+  routes_list = Route.objects.all()
+  paginator = Paginator(routes_list, 10)
+  page_number = request.GET.get('page')
+  routes = paginator.get_page(page_number)
   return render(request, 'routes-list.html', {'routes': routes})
 
 

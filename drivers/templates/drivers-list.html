@@ -17,51 +17,44 @@
       </tr>
     </thead>
     <tbody>
-      {% if drivers %}
-        {% for driver in drivers %}
-          <tr>
-            <td>{{ driver.name }}</td>
-            <td>{{ driver.license_number }}</td>
-            <td>
-              <div class="flex justify-between">
-                {% if driver.vehicle %}
-                  <a href="{% url 'view-vehicle' driver.vehicle.id %}" class="bg-gray-200 p-1 mb-1">{{ driver.vehicle.license_plate }}</a>
-                {% else %}
-                  No Vehicle Assigned
-                {% endif %}
-              </div>
-            </td>
-            <td>
-              <a href="{% url 'view-driver' driver.id %}" class="btn view-btn">Manage driver</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="4">No drivers registered yet!</td>
-          </tr>
-        {% endfor %}
-      {% else %}
-        <tr>
-          <td colspan="4">No drivers registered yet!</td>
-        </tr>
+      {% if drivers %} {% for driver in drivers %}
+      <tr>
+        <td>{{ driver.name }}</td>
+        <td>{{ driver.license_number }}</td>
+        <td>
+          <div class="flex justify-between">
+            {% if driver.vehicle %}
+            <a href="{% url 'view-vehicle' driver.vehicle.id %}" class="bg-gray-200 p-1 mb-1">{{ driver.vehicle.license_plate }}</a>
+            {% else %} No Vehicle Assigned {% endif %}
+          </div>
+        </td>
+        <td>
+          <a href="{% url 'view-driver' driver.id %}" class="btn view-btn">Manage driver</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No drivers registered yet!</td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="4">No drivers registered yet!</td>
+      </tr>
       {% endif %}
     </tbody>
   </table>
 
   <!-- Pagination controls -->
-  <div class="mt-4">
+  <div class="mt-4 flex justify-between items-center">
     <span class="text-sm">Page {{ drivers.number }} of {{ drivers.paginator.num_pages }}</span>
     <div class="flex justify-center mt-2">
       {% if drivers.has_previous %}
-        <a href="?page=1" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">First</a>
-        <a href="?page={{ drivers.previous_page_number }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Previous</a>
-      {% endif %}
-
-      {% if drivers.has_next %}
-        <a href="?page={{ drivers.next_page_number }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Next</a>
-        <a href="?page={{ drivers.paginator.num_pages }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Last</a>
+      <a href="?page={{ drivers.previous_page_number }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Previous</a>
+      {% endif %} {% if drivers.has_next %}
+      <a href="?page={{ drivers.next_page_number }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Next</a>
       {% endif %}
     </div>
+    <div></div>
   </div>
 </div>
 

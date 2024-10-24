@@ -1,6 +1,4 @@
-{% extends "layout.html" %} 
-{% block title %}TMS | Route List{% endblock %} 
-{% block content %}
+{% extends "layout.html" %} {% block title %}TMS | Route List{% endblock %} {% block content %}
 
 <div class="container mx-auto p-4">
   <div class="flex items-center justify-between">
@@ -37,7 +35,6 @@
 
         <td>
           <a href="{% url 'route-details' route.id %}" class="btn edit-btn">Manage route</a>
-       
         </td>
       </tr>
       {% empty %}
@@ -51,6 +48,17 @@
       {% endif %}
     </tbody>
   </table>
+  <div class="mt-4 flex justify-between items-center">
+    <span class="text-sm">Page {{ routes.number }} of {{ routes.paginator.num_pages }}</span>
+    <div class="flex justify-center mt-2">
+      {% if routes.has_previous %}
+      <a href="?page={{ routes.previous_page_number }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Previous</a>
+      {% endif %} {% if routes.has_next %}
+      <a href="?page={{ routes.next_page_number }}" class="mx-1 bg-blue-500 text-white px-4 py-2 rounded">Next</a>
+      {% endif %}
+    </div>
+    <div></div>
+  </div>
 </div>
 
 {% endblock %}
