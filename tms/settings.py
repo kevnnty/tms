@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'vehicles',
     'drivers',
     'routes',
-    'accounts'
+    'accounts',
+    'analytics',
 ]
 
 MIDDLEWARE = [
