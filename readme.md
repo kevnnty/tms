@@ -22,13 +22,7 @@ The **Transport Management System (TMS)** is a web-based application for managin
 ---
 
 ## Installation
-
 To set up and run the project locally, follow these steps:
-
-### Prerequisites
-
-- **Python** 
-- **PostgreSQL** - Make sure MySQL is installed and running.
 
 ### Steps
 
