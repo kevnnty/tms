@@ -29,7 +29,7 @@ To set up and run the project locally, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/Kevin-Tyy/tms.git
+   git clone https://github.com/kevnnty/tms.git
 2. **Set Up Virtual Environment:**
 
    ```bash
