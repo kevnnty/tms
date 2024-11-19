@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<div class="px-10 py-5">
+  <h1 class="text-3xl">Analytics Dashboard</h1>
+
+  <div class="mt-4">
+    <h2 class="text-xl">Vehicle Usage</h2>
+    <canvas id="vehicleUsageChart" width="400" height="200"></canvas>
+  </div>
+  <div class="mt-4">
+    <h2 class="text-xl">Driver Earnings</h2>
+    <canvas id="driverEarningsChart" width="400" height="200"></canvas>
+  </div>
+</div>
+
+
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script> {% endcomment %}
+{% comment %} <script src="{% static 'js/graphs.js' %}"></script> {% endcomment %}
+
+{% endblock %}

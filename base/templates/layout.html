@@ -15,25 +15,31 @@
         <p class="text-gray-400 px-3">Management portal</p>
         <div class="space-y-3 mt-3">
           <a
+            href="#"
+            class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
+            <span> Dashboard </span>
+            <span> &rarr; </span></a
+          >
+          <a
             href="{% url 'driver-list' %}"
             class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-            <span> Drivers </span>
+            <span>Manage Drivers </span>
             <span> &rarr; </span></a
           >
           <a
             href="{% url 'vehicle-list' %}"
             class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-            <span> Vehicles </span>
+            <span>Manage Vehicles </span>
             <span> &rarr; </span></a
           >
           <a
             href="{% url 'routes-list'%}"
             class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
-            <span> Routes & Trips </span>
+            <span> Manage Routes & Trips </span>
             <span> &rarr; </span></a
           >
           <a
-            href="#"
+            href={% url "analytics" %}
             class="block text-blue-600 w-full py-3 px-6 rounded-full cursor-pointer border border-gray-200 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 flex justify-between">
             <span> Reporting & Analytics </span>
             <span> &rarr; </span></a

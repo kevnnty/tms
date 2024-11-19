@@ -20,6 +20,9 @@ class Vehicle(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=CATEGORY_CHOICES[0])
     status = models.CharField(max_length=20, choices=[('active', 'Active'), ('inactive', 'Inactive')])
     route = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True, blank=True, related_name='vehicles')
-
+    total_trips = models.PositiveIntegerField(default=0)
+    total_distance = models.FloatField(default=0.0)
+    
+        
     def __str__(self):
         return f"{self.license_plate} - {self.model}"
